@@ -4,7 +4,7 @@ import Create from './components/Create';
 import Header from './components/Header';
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Read from './components/Read';
-import Updatebar from './components/Updatebar'
+import Update from './components/Update'
 
 
 function App() {
@@ -14,8 +14,8 @@ function App() {
       <Header/>
       <Routes>
         <Route exact path="/" element={<Create />} />
-        <Route exact path="/all" element={<Read />} />
-        <Route exact path="/update" element={<Updatebar />} />
+        <Route path="/all" element={<Read />} />
+        <Route path="/:id" element={<Update />} />
       </Routes>
       </BrowserRouter>
   

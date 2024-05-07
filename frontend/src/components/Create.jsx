@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Create = () => {
@@ -9,9 +11,12 @@ const [email, setEmail] = useState("")
 const [age, setAge] = useState(0)
 const [error, setError] = useState("")
 
-console.log(name,email,age)
-const handleSubmit = async(e)=>{
+const navigate = useNavigate();
 
+console.log(name,email,age)
+
+const handleSubmit = async(e)=>{
+  e.preventDefault();
   const addUser = {name, email, age}
 
   const response = await fetch("http://localhost:5000",{
@@ -22,22 +27,26 @@ const handleSubmit = async(e)=>{
     },
   });
   const result = await response.json();
-  if(response.ok){
-    console.log(result)
-    setError("")
-    setName("")
-    setEmail("")
-    setAge("0")
-  }
+
   if(!response.ok){
     console.log(result.error);
     setError(result.error);
+    
+  }
+
+  if(response.ok){
+    console.log(result);
+    setError("");
+    setName("");
+    setEmail("");
+    setAge("0");
+    navigate("/all")
   }
 }
 
   return (
     <div className='container m-7 ' >
-      {error && <div class="alert alert-warning" >
+      {error && <div class="alert alert-danger" >
       {error}</div>}
       <br/>
       <h2 className='text-center m' > Enter The data </h2>
